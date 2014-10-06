@@ -1,4 +1,4 @@
-(defproject picture-gallery "0.1.0-SNAPSHOT"
+(defproject master "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -20,9 +20,9 @@
                  [ring-middleware-format "0.3.1"]]
   :plugins [[lein-ring "0.8.10"]
             [lein-cljsbuild "0.3.4"]]
-  :ring {:handler picture-gallery.handler/app
-         :init picture-gallery.handler/init
-         :destroy picture-gallery.handler/destroy}
+  :ring {:handler master.handler/app
+         :init master.handler/init
+         :destroy master.handler/destroy}
   :profiles
   {:uberjar {:aot :all}
    :production
