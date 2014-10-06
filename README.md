@@ -1,8 +1,22 @@
-# Clojure Web Gallery Application
-It is a web image gallery, where there are different levels of access, such as a guest or registered user. 
-Guest can only be viewed galleries and images that are other registered users predict. 
-When a registered user uploading the images his gallery automatically created. 
-Images are stored in a folder into the project. 
+# This application is designed to work as an web image gallery, with
+different levels of access, such as guest and registered user. Guest is
+only allowed to view galleries and images that have been posted by other
+registered users.
+
+On the other hand, registered user has more possibilities. He can post
+and delete his own images, erase his account (by doing this - all the
+galleries and images created by that user are also being erased), as
+well as view images from other users (without being able to delete
+them).
+
+Once the registered user posts his first image, gallery where all his
+future images are stored is automatically being created.
+
+Images are being stored in project directory, in order for database to
+be lighter.
+Image related metadata is located in table "images", and based on
+that, we can exactly connect image from directory with currently
+logged in user. 
 
 ## Prerequisites
 
