@@ -1,4 +1,5 @@
-# This application is designed to work as an web image gallery, with
+# Clojure Web Application
+This application is designed to work as an web image gallery, with
 different levels of access, such as guest and registered user. Guest is
 only allowed to view galleries and images that have been posted by other
 registered users.
