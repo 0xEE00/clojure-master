@@ -38,6 +38,7 @@ For developing this application was used [LightTable][3] development environment
 
 Start a web application:
 	in repl:
+		
 		1.(use 'master.models.schema)
 		  (create-users-table)
 		  (create-images-table)
