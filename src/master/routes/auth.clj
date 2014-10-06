@@ -27,7 +27,7 @@
              [:pass "entered passwords do not match"])
   (not (vali/errors? :id :pass :pass1)))
 
-;Greska koja se prikazuje ako pokusavamo da reigisrujemo vec postojeceg korisnika
+;Show erro if user exists
 (defn format-error [id ex]
   (cond
    (and (instance? org.postgresql.util.PSQLException ex)
@@ -36,11 +36,11 @@
    :else
    "An error has occured while processing the request"))
 
-;Kada polja nisu dobro popunjena ispisuje se obavestenje crvenim slovima
+;Red color text
 (defn error-item [[error]]
   [:div.error error])
 
-;Kontrola koju koristimo u formi ispod. Refaktorisanje koda.
+;Refactoring code
 (defn control [id label field]
   (list
    (vali/on-error id error-item)
@@ -61,7 +61,7 @@
                      (password-field {:tabindex 3} "pass1"))
             (submit-button {:tabindex 4} "create account"))))
 
-;Poziva se na dugme. Ako su podaci ispravno uneti pokusava da unese korisnika.
+;Invoke on button.
 (defn handle-registration [id pass pass1]
   (if (valid? id pass pass1)
     (try
@@ -74,19 +74,19 @@
         (registration-page)))
     (registration-page id)))
 
-;Proverava ID i PASS, ako je OK loguje korisnika
+;Check username and password
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
     (if (and user (crypt/compare pass (:pass user)))
       (session/put! :user id)))
   (resp/redirect "/"))
 
-;LOGOUT
+;Logout
 (defn handle-logout []
   (session/clear!)
   (resp/redirect "/"))
 
-;PRvi brise sve slike za korisnika a onda i samog korisnika
+;Delete images and user
 (defn handle-confirm-delete []
   (let [user (session/get :user)]
     (doseq [{:keys [name]} (db/images-by-user user)]

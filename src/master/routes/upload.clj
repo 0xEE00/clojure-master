@@ -24,7 +24,7 @@
 
 ;(def thumb-prefix "thumb_")
 
-;Smanjuje sliku
+;Resize image
 (defn scale [img ratio width height]
   (let [scale        (AffineTransform/getScaleInstance
                        (double ratio) (double ratio))
@@ -33,7 +33,7 @@
                        scale AffineTransformOp/TYPE_BILINEAR)]
     (.filter transform-op img (BufferedImage. width height (.getType img)))))
 
-;Smanjuje sliku
+;Create small image
 (defn scale-image [file]
   (let [img        (ImageIO/read file)
         img-width  (.getWidth img)
@@ -41,7 +41,7 @@
         ratio      (/ thumb-size img-height)]
     (scale img ratio (int (* img-width ratio)) thumb-size)))
 
-;Poziva f-ju za smanjivanje slike i snima je
+;Resize and save image
 (defn save-thumbnail [{:keys [filename]}]
   (let [path (str (gallery-path) File/separator)]
     (ImageIO/write
@@ -61,7 +61,7 @@
 ;(defn gallery-path []
   ;"galleries")
 
-;Postavlja se slika u direktorijum galleries, ako ga nema kreira se
+;Upload image in project directory.
 (defn handle-upload [{:keys [filename] :as file}]
   (upload-page
    (if (empty? filename)
@@ -85,11 +85,11 @@
          (str "error uploading file " (.getMessage ex)))))))
 
 
-;Prikazivanje slike
+;Show images
 (defn serve-file [user-id file-name]
   (file-response (str galleries File/separator user-id File/separator file-name)))
 
-;Brise sliku i thumbnail
+;Delete image i thumbnail
 (defn delete-image [userid name]
   (try
     (db/delete-image userid name)
@@ -98,7 +98,7 @@
     "ok"
     (catch Exception ex (.getMessage ex))))
 
-;Brise vise slika. Pima imena slika za brisanje
+;Delete images.
 (defn delete-images [names]
   (let [userid (session/get :user)]
     (resp/json

@@ -8,14 +8,14 @@
             [hiccup.form :refer [check-box]]
             [hiccup.page :refer :all]))
 
-;Povezuje na sliku
+;Linked to image
 (defn thumbnail-link [{:keys [userid name]}]
   [:div.thumbnail
    [:a {:class name :href (image-uri userid name)}
     (image (thumb-uri userid name))
     (if (= userid (session/get :user)) (check-box name))]])
 
-;Prikazuje geleriju i daje mogucnost brisanja
+;Show gallery and delete option
 (defn display-gallery [userid]
   (if-let [gallery (not-empty (map thumbnail-link (db/images-by-user userid)))]
     [:div
@@ -25,14 +25,14 @@
        [:input#delete {:type "submit" :value "delete images"}])]
     [:p "The user " userid " does not have any galleries"]))
 
-;Povezuje na strnicu galerije
+;Linged on gallery page
 (defn gallery-link [{:keys [userid name]}]
   [:div.thumbnail
    [:a {:href (str "/gallery/" userid)}
     (image (thumb-uri userid name))
     userid "'s gallery"]])
 
-;Prikazuje sve galerije za jednog korisnika
+;Show all iamges for user
 (defn show-galleries []
   (map gallery-link (db/get-gallery-previews)))
 

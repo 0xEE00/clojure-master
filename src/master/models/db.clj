@@ -19,7 +19,7 @@
     ;(sql/with-query-results
       ;res ["select * from users where id = ?" id] (first res))))
 
-;Naredne 3 f-je su MACRO, gde pravimo template za pristup bazi
+;Creating tempalte for entry database
 (defmacro with-db [f & body]
 `(sql/with-connection ~db (~f ~@body)))
 
@@ -30,7 +30,7 @@
   (with-db sql/with-query-results
     res ["select * from users where id = ?" id] (first res)))
 
-;Dodaje su informacije za sliku u bazu
+;Added metadata for image
 (defn add-image [userid name]
   (with-db
     sql/transaction
@@ -45,13 +45,13 @@
   ;(sql/with-connection db
     ;(sql/with-query-results res ["select * from users"] (println res))))
 
-;Vraca nazive svih slika koje je uneo korisnik
+;Return all images filename by user
 (defn images-by-user [userid]
   (with-db
     sql/with-query-results
     res ["select * from images where userid = ?" userid] (doall res)))
 
-;Ova f-ja vuce jednu sliku za svakog korisnika
+;Return image
 (defn get-gallery-previews []
   (with-db
     sql/with-query-results
