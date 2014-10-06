@@ -24,6 +24,7 @@ logged in user.
 You will need [Leiningen][1] 1.6.0 or above installed.
 
 You will need [PostgreSQL][2]
+
 	- database name: master_rad
 	- user: admin
 	- pasword: admin
